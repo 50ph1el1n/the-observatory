@@ -31,47 +31,52 @@ export type District = {
 };
 
 export const districts: District[] = [
+  // ─── Layout rule ──────────────────────────────────────────────────────
+  // Library is the centre (50%). Space tower sits directly above the library.
+  // Five ground buildings are spaced evenly: centres at 12 / 31 / 50 / 69 / 88
+  // (19% between adjacent centres). Cinema flush left, Pod flush right.
+  // ─────────────────────────────────────────────────────────────────────
   {
     key: "cine",
     name: "Cinema",
     en: "Films",
     mark: "◐",
-    hotspot: { left: "4%", bottom: "2%", width: "16%", height: "32%" },
+    hotspot: { left: "4%", bottom: "2%", width: "16%", height: "32%" }, // centre 12
   },
   {
     key: "hall",
     name: "City Hall",
     en: "Civic & Policy",
     mark: "▲",
-    hotspot: { left: "21%", bottom: "2%", width: "14%", height: "33%" },
+    hotspot: { left: "24%", bottom: "2%", width: "14%", height: "33%" }, // centre 31
   },
   {
     key: "lib",
     name: "Library",
     en: "Books",
     mark: "❖",
-    hotspot: { left: "35%", bottom: "2%", width: "21%", height: "30%" },
+    hotspot: { left: "40%", bottom: "2%", width: "20%", height: "30%" }, // centre 50
   },
   {
     key: "ai",
     name: "AI Factory",
     en: "Tools & Workflows",
     mark: "✦",
-    hotspot: { left: "55%", bottom: "2%", width: "19%", height: "33%" },
+    hotspot: { left: "60%", bottom: "2%", width: "18%", height: "33%" }, // centre 69
   },
   {
     key: "space",
     name: "Spaceport",
     en: "Travel & Frontiers",
     mark: "✧",
-    hotspot: { left: "41%", bottom: "38%", width: "18%", height: "52%" },
+    hotspot: { left: "42%", bottom: "38%", width: "16%", height: "52%" }, // centre 50 — aligned with lib
   },
   {
     key: "pod",
     name: "Broadcast Tower",
     en: "Podcasts",
     mark: "◉",
-    hotspot: { left: "76%", bottom: "2%", width: "21%", height: "42%" },
+    hotspot: { left: "79.5%", bottom: "2%", width: "17%", height: "42%" }, // centre 88
   },
   // garden + fin have no hotspot in hero — only in city map
   {
