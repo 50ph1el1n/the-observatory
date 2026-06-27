@@ -1,5 +1,7 @@
+import fs from "node:fs";
+import path from "node:path";
 import Link from "next/link";
-import { getHotspotDistricts } from "@/lib/districts";
+import { getHotspotDistricts, type DistrictKey } from "@/lib/districts";
 import { getArticlesByDistrict } from "@/lib/articles";
 
 const navItems = [
@@ -8,6 +10,13 @@ const navItems = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/#contact" },
 ];
+
+const BUILDINGS_DIR = path.join(process.cwd(), "public/buildings");
+
+function hasBuildingImage(key: DistrictKey): boolean {
+  if (!fs.existsSync(BUILDINGS_DIR)) return false;
+  return fs.existsSync(path.join(BUILDINGS_DIR, `${key}.png`));
+}
 
 export default function Hero() {
   const hotspots = getHotspotDistricts();
@@ -50,6 +59,8 @@ export default function Hero() {
       {/* ───── Building hotspots ───── */}
       {hotspots.map((d) => {
         const count = getArticlesByDistrict(d.key).length;
+        const hasImage = hasBuildingImage(d.key);
+
         return (
           <Link
             key={d.key}
@@ -58,18 +69,28 @@ export default function Hero() {
             className="group absolute z-20"
             style={d.hotspot}
           >
-            {/* Glow on hover */}
-            <div
-              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(244,185,66,0.55) 0%, rgba(244,185,66,0.15) 40%, transparent 70%)",
-                filter: "blur(16px)",
-                transform: "scale(1.4)",
-              }}
-            />
+            {hasImage ? (
+              // Real building overlay — floats + outline glows on hover
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={`/buildings/${d.key}.png`}
+                alt={d.name}
+                className="building-float pointer-events-none h-full w-full object-contain object-bottom"
+              />
+            ) : (
+              // Fallback: invisible click area with diffuse glow on hover
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(244,185,66,0.55) 0%, rgba(244,185,66,0.15) 40%, transparent 70%)",
+                  filter: "blur(16px)",
+                  transform: "scale(1.4)",
+                }}
+              />
+            )}
 
-            {/* Floating label */}
+            {/* Floating label — always present */}
             <div className="pointer-events-none absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-[140%] opacity-0 transition-all duration-300 group-hover:-translate-y-[180%] group-hover:opacity-100">
               <div className="whitespace-nowrap rounded border border-gold/60 bg-night-deep/95 px-3 py-2 shadow-lg backdrop-blur-sm">
                 <div className="font-display text-[0.95rem] font-medium italic leading-tight text-cream">
