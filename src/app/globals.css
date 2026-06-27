@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* ============================================
+   DESIGN TOKENS — The Observatory
+   Maggie Appleton "Tools for Thought" dark palette
+   Deep purple night + warm gold + cream
+   Atlantic-style editorial typography
+   ============================================ */
+@theme inline {
+  /* ----- Backgrounds ----- */
+  --color-night:       #2a1a4a;   /* 主背景：深紫夜空 */
+  --color-night-deep:  #1e1138;   /* 區塊分隔 */
+  --color-night-soft:  #382057;   /* 卡片底 */
+  --color-line:        #4d3a72;   /* 分隔線 */
+
+  /* ----- Text ----- */
+  --color-cream:       #f5e8c8;   /* 主文字：暖奶白 */
+  --color-cream-soft:  #e8d4a0;   /* 次要文字 */
+  --color-cream-mute:  #b39d72;   /* 輔助文字 */
+
+  /* ----- Accents ----- */
+  --color-gold:        #f4b942;   /* 強調金黃（窗光） */
+  --color-gold-deep:   #d4941e;
+  --color-terra:       #d17b4a;   /* 赭橘（連結） */
+  --color-rust:        #a85a35;
+  --color-sage:        #8ba888;   /* 鼠尾草綠 */
+
+  /* ----- Typography ----- */
+  --font-display: var(--font-source-serif);    /* Atlantic 編輯式襯線 */
+  --font-sans:    var(--font-inter-tight);     /* nav / labels */
+  --font-mono:    var(--font-jetbrains-mono);  /* meta / tags */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
