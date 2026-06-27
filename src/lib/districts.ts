@@ -69,10 +69,10 @@ export const districts: District[] = [
     name: "Spaceport",
     en: "Travel & Frontiers",
     mark: "✧",
-    // Extracted directly from the source 1672x941 hero at x=715-960, y=10-561.
-    // Hotspot mirrors those exact proportions, so the embedded hill silhouette
-    // overlays seamlessly onto the new building-less hero's hill behind it.
-    hotspot: { left: "42.8%", bottom: "40.4%", width: "14.6%", height: "58.6%" },
+    // New self-contained tower-with-island image (932x897, aspect 1.04).
+    // Container aspect matched so image fills exactly. Bottom positioned so
+    // the island sits inside the hero's hill silhouette, masking the boundary.
+    hotspot: { left: "35%", bottom: "26%", width: "30%", height: "51%" },
   },
   {
     key: "pod",
