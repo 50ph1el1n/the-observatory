@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Observatory
 
-## Getting Started
+> A quiet place to keep what I'm learning — eight districts under one violet sky.
 
-First, run the development server:
+A personal knowledge city, built as a portfolio + writing space. Eight thematic districts (AI, Library, Reflection Park, Spaceport, etc.) each hold a category of essays.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🌐 **Live**: https://sophie-city-next.vercel.app
+
+---
+
+## Tech Stack
+
+| Layer | Tool |
+|---|---|
+| Framework | [Next.js 16](https://nextjs.org) (App Router, Turbopack) |
+| UI | React 19 + Tailwind CSS 4 |
+| Content | MDX (via `next-mdx-remote` + `gray-matter`) |
+| Typography | Source Serif 4 (display) · Inter Tight (sans) · JetBrains Mono (mono) |
+| Hosting | [Vercel](https://vercel.com) |
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx              # Root layout + fonts + metadata
+│   ├── page.tsx                # Homepage (composes 5 sections)
+│   ├── globals.css             # Tailwind theme + design tokens
+│   └── articles/[slug]/page.tsx # Dynamic article reader (3-column PostHog-style)
+├── components/
+│   ├── Hero.tsx                # Full-bleed illustration + nav
+│   ├── Intro.tsx               # Italic editorial intro
+│   ├── Articles.tsx            # Article cards grid
+│   ├── CityMap.tsx             # 8-district navigation grid
+│   ├── SiteHeader.tsx          # Sticky header for non-home pages
+│   └── Footer.tsx
+├── content/articles/           # ★ Write articles here as .mdx files
+└── lib/articles.ts             # File-based content loader
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Writing a New Article
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create `src/content/articles/<slug>.mdx`
+2. Add frontmatter:
+   ```yaml
+   ---
+   title: "Your article title"
+   district: ai    # ai | pod | hall | lib | cine | fin | space | garden
+   cat: AI Factory
+   read: 10 min read
+   date: 2026-06-28
+   excerpt: "One-sentence summary."
+   tags: [tag1, tag2]
+   cover: cover-1  # cover-1 to cover-4
+   ---
+   ```
+3. Write the body in Markdown. `## Headings` auto-populate the right-side TOC.
+4. Commit and push — Vercel auto-deploys.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local Development
 
-## Learn More
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Design
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Inspired by:
+- **Typography**: The Atlantic
+- **Color palette**: Maggie Appleton's *Tools for Thought* (deep violet + warm gold)
+- **Article layout**: PostHog blog
+- **Hero illustration**: AI-generated, in the style of editorial story-books
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with care in Taipei.
