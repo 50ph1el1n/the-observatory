@@ -69,7 +69,9 @@ export const districts: District[] = [
     name: "Spaceport",
     en: "Travel & Frontiers",
     mark: "✧",
-    hotspot: { left: "42%", bottom: "38%", width: "16%", height: "52%" }, // centre 50 — aligned with lib
+    // Sized to match Image #10 reference: tower spans ~65% of viewport height.
+    // Cropped image aspect (0.467) determines effective rendered size.
+    hotspot: { left: "41.5%", bottom: "30%", width: "17%", height: "65%" }, // centre 50 — vertically aligned with lib
   },
   {
     key: "pod",
