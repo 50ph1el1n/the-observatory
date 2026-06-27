@@ -69,9 +69,10 @@ export const districts: District[] = [
     name: "Spaceport",
     en: "Travel & Frontiers",
     mark: "✧",
-    // Sized to match Image #10 reference: tower spans ~65% of viewport height.
-    // Cropped image aspect (0.467) determines effective rendered size.
-    hotspot: { left: "41.5%", bottom: "30%", width: "17%", height: "65%" }, // centre 50 — vertically aligned with lib
+    // Extracted directly from the source 1672x941 hero at x=715-960, y=10-561.
+    // Hotspot mirrors those exact proportions, so the embedded hill silhouette
+    // overlays seamlessly onto the new building-less hero's hill behind it.
+    hotspot: { left: "42.8%", bottom: "40.4%", width: "14.6%", height: "58.6%" },
   },
   {
     key: "pod",
