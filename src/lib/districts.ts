@@ -32,54 +32,51 @@ export type District = {
 
 export const districts: District[] = [
   // ─── Layout rule ──────────────────────────────────────────────────────
-  // Library is the centre (50%). Space tower sits directly above the library.
-  // Five ground buildings are spaced evenly: centres at 12 / 31 / 50 / 69 / 88
-  // (19% between adjacent centres). Cinema flush left, Pod flush right.
+  // Hotspots calibrated to the ORIGINAL hero image (1672x941) where each
+  // building is at a fixed position. Invisible-hotspot mode (no overlay PNGs)
+  // shows hover glow + label inside these click areas.
   // ─────────────────────────────────────────────────────────────────────
   {
     key: "cine",
     name: "Cinema",
     en: "Films",
     mark: "◐",
-    hotspot: { left: "4%", bottom: "2%", width: "16%", height: "32%" }, // centre 12
+    hotspot: { left: "4%", bottom: "13%", width: "13%", height: "25%" },
   },
   {
     key: "hall",
     name: "City Hall",
     en: "Civic & Policy",
     mark: "▲",
-    hotspot: { left: "24%", bottom: "2%", width: "14%", height: "33%" }, // centre 31
+    hotspot: { left: "20%", bottom: "12%", width: "8%", height: "26%" },
   },
   {
     key: "lib",
     name: "Library",
     en: "Books",
     mark: "❖",
-    hotspot: { left: "40%", bottom: "2%", width: "20%", height: "30%" }, // centre 50
+    hotspot: { left: "29%", bottom: "12%", width: "19%", height: "22%" },
   },
   {
     key: "ai",
     name: "AI Factory",
     en: "Tools & Workflows",
     mark: "✦",
-    hotspot: { left: "60%", bottom: "2%", width: "18%", height: "33%" }, // centre 69
+    hotspot: { left: "50%", bottom: "13%", width: "11%", height: "21%" },
   },
   {
     key: "space",
     name: "Spaceport",
     en: "Travel & Frontiers",
     mark: "✧",
-    // New self-contained tower-with-island image (932x897, aspect 1.04).
-    // Container aspect matched so image fills exactly. Bottom positioned so
-    // the island sits inside the hero's hill silhouette, masking the boundary.
-    hotspot: { left: "35%", bottom: "26%", width: "30%", height: "51%" },
+    hotspot: { left: "43%", bottom: "40%", width: "14%", height: "59%" },
   },
   {
     key: "pod",
     name: "Broadcast Tower",
     en: "Podcasts",
     mark: "◉",
-    hotspot: { left: "79.5%", bottom: "2%", width: "17%", height: "42%" }, // centre 88
+    hotspot: { left: "80%", bottom: "13%", width: "18%", height: "42%" },
   },
   // garden + fin have no hotspot in hero — only in city map
   {
