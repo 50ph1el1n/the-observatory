@@ -57,7 +57,7 @@ export const districts: District[] = [
     name: "AI Factory",
     en: "Tools & Workflows",
     mark: "✦",
-    hotspot: { left: "56%", bottom: "2%", width: "17%", height: "28%" },
+    hotspot: { left: "55%", bottom: "2%", width: "19%", height: "33%" },
   },
   {
     key: "space",
