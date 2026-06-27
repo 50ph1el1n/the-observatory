@@ -1,0 +1,36 @@
+---
+title: "Prompt Engineering: from instruction to context"
+district: ai
+cat: AI Factory
+read: 12 min read
+date: 2025-06-15
+excerpt: "Writing prompts is less about commanding a model and more about setting the stage. Roles, goals, and constraints matter more than clever wording."
+tags: [prompt, llm, workflow]
+cover: cover-1
+---
+
+When I first started working with large language models, I thought prompts were simple. State the question, get an answer. After a year of trial and error, I now think of prompts the way a director thinks of a scene: every word frames what the model is about to perform.
+
+The shift happened slowly. I'd write a prompt, get something almost-right, edit it, get something else almost-right. Eventually I noticed a pattern: the prompts that worked weren't the cleverest ones. They were the ones that told the model who it was, who it was speaking to, and what success looked like.
+
+## From instruction to context
+
+An instruction tells the model what to do. A context tells the model who it is and what the world around the task looks like. The difference sounds small but compounds quickly.
+
+My habit now: write three lines of context before the task itself. Who the assistant is. Who it's helping. What kind of answer counts as good. Then I write the task. Then I show one ideal example. The prompt is longer, but it doesn't need rewriting.
+
+> You're not commanding the model — you're shrinking its possibility space.
+
+## The hidden cost of being clever
+
+Clever prompts feel impressive when they work and embarrassing when they don't. They tend to rely on tricks: jailbreaks, role-play hacks, exotic phrasings. The trouble is that tricks are brittle. The next model update breaks them. The next user with a slightly different question breaks them.
+
+Context, by contrast, ages well. A clear description of the task survives model upgrades because it's not exploiting any particular model's quirks — it's describing the problem.
+
+## What I would tell myself a year ago
+
+Stop optimizing the verb. Don't agonize over whether to write "summarize", "distill", or "compress". The model knows what you mean. What it doesn't know is who the summary is for, how long it should be, and what level of detail to keep. Tell it those things.
+
+> Write the prompt you wish someone had given you on your first day at the job.
+
+I'm still learning. Some weeks I revert to one-liners and remember why I stopped. But the pattern keeps coming back: when in doubt, give the model more context, not more cleverness.

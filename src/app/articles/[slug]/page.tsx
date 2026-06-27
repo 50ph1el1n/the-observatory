@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import type { Metadata } from "next";
+import type { MDXComponents } from "mdx/types";
 import {
-  articles,
+  getAllArticles,
   getArticleBySlug,
   getRelatedArticles,
   getHeadings,
@@ -12,7 +14,7 @@ import SiteHeader from "@/components/SiteHeader";
 import Footer from "@/components/Footer";
 
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  return getAllArticles().map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({
@@ -28,6 +30,72 @@ export async function generateMetadata({
     description: article.excerpt,
   };
 }
+
+/* ============================================
+   MDX styling — applies to all .mdx body content
+   ============================================ */
+const mdxComponents: MDXComponents = {
+  p: (props) => (
+    <p
+      className="my-6 font-display text-[1.125rem] leading-[1.78] text-cream"
+      {...props}
+    />
+  ),
+  h2: ({ children, ...props }) => {
+    const text = typeof children === "string" ? children : "";
+    const id = slugify(text);
+    return (
+      <h2
+        id={id}
+        className="mt-16 mb-3 scroll-mt-28 font-display text-[1.75rem] font-medium leading-[1.2] tracking-tight text-cream"
+        {...props}
+      >
+        {children}
+      </h2>
+    );
+  },
+  h3: (props) => (
+    <h3
+      className="mt-12 mb-2 font-display text-[1.3rem] font-medium tracking-tight text-cream"
+      {...props}
+    />
+  ),
+  blockquote: (props) => (
+    <blockquote
+      className="my-12 border-l-2 border-gold pl-6 font-display text-[1.35rem] italic leading-[1.5] text-cream"
+      {...props}
+    />
+  ),
+  ul: (props) => (
+    <ul
+      className="my-6 list-disc space-y-2 pl-6 font-display text-[1.125rem] leading-[1.78] text-cream"
+      {...props}
+    />
+  ),
+  ol: (props) => (
+    <ol
+      className="my-6 list-decimal space-y-2 pl-6 font-display text-[1.125rem] leading-[1.78] text-cream"
+      {...props}
+    />
+  ),
+  a: (props) => (
+    <a
+      className="text-terra underline-offset-4 transition-colors hover:text-gold hover:underline"
+      {...props}
+    />
+  ),
+  strong: (props) => (
+    <strong className="font-semibold text-cream" {...props} />
+  ),
+  em: (props) => <em className="italic text-cream-soft" {...props} />,
+  code: (props) => (
+    <code
+      className="rounded bg-night-deep px-1.5 py-0.5 font-mono text-[0.85em] text-cream-soft"
+      {...props}
+    />
+  ),
+  hr: () => <hr className="my-12 h-px w-12 border-0 bg-gold" />,
+};
 
 export default async function ArticlePage({
   params,
@@ -101,43 +169,9 @@ export default async function ArticlePage({
             {/* Divider */}
             <div className="mb-12 h-px w-12 bg-gold" />
 
-            {/* Body */}
-            <div className="space-y-7">
-              {article.body.map((block, i) => {
-                if (block.type === "paragraph") {
-                  return (
-                    <p
-                      key={i}
-                      className="font-display text-[1.125rem] leading-[1.78] text-cream"
-                    >
-                      {block.text}
-                    </p>
-                  );
-                }
-                if (block.type === "heading") {
-                  const id = slugify(block.text);
-                  return (
-                    <h2
-                      key={i}
-                      id={id}
-                      className="mt-16 mb-3 scroll-mt-28 font-display text-[1.65rem] font-medium leading-[1.2] tracking-tight text-cream"
-                    >
-                      {block.text}
-                    </h2>
-                  );
-                }
-                if (block.type === "quote") {
-                  return (
-                    <blockquote
-                      key={i}
-                      className="my-12 border-l-2 border-gold pl-6 font-display text-[1.35rem] italic leading-[1.5] text-cream"
-                    >
-                      &ldquo;{block.text}&rdquo;
-                    </blockquote>
-                  );
-                }
-                return null;
-              })}
+            {/* MDX Body */}
+            <div>
+              <MDXRemote source={article.body} components={mdxComponents} />
             </div>
 
             {/* Tags */}

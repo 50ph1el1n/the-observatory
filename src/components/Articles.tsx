@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { articles } from "@/lib/articles";
+import { getAllArticles } from "@/lib/articles";
 
 const coverStyles: Record<string, React.CSSProperties> = {
   "cover-1": {
@@ -28,6 +28,8 @@ const coverStyles: Record<string, React.CSSProperties> = {
 };
 
 export default function Articles() {
+  const articles = getAllArticles();
+
   return (
     <div id="articles" className="mx-auto max-w-[1240px]">
       <div className="mb-5 font-mono text-[0.7rem] uppercase tracking-[0.3em] text-gold">
