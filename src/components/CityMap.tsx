@@ -1,20 +1,6 @@
-type District = {
-  mark: string;
-  name: string;
-  en: string;
-  count: number;
-};
-
-const districts: District[] = [
-  { mark: "✦", name: "AI Factory",        en: "Tools & Workflows",    count: 4 },
-  { mark: "◉", name: "Broadcast Tower",   en: "Podcasts",             count: 3 },
-  { mark: "▲", name: "City Hall",         en: "Civic & Policy",       count: 3 },
-  { mark: "❖", name: "Library",           en: "Books",                count: 5 },
-  { mark: "◐", name: "Cinema",            en: "Films",                count: 2 },
-  { mark: "◆", name: "Finance District",  en: "Money & Markets",      count: 3 },
-  { mark: "✧", name: "Spaceport",         en: "Travel & Frontiers",   count: 2 },
-  { mark: "❀", name: "Reflection Park",   en: "Self & Notes",         count: 4 },
-];
+import Link from "next/link";
+import { districts } from "@/lib/districts";
+import { getArticlesByDistrict } from "@/lib/articles";
 
 export default function CityMap() {
   return (
@@ -32,25 +18,29 @@ export default function CityMap() {
       </p>
 
       <div className="mt-14 grid grid-cols-2 gap-px border border-line bg-line md:grid-cols-4">
-        {districts.map((d) => (
-          <button
-            key={d.name}
-            className="group bg-night-deep px-7 py-9 text-left transition-colors hover:bg-night-soft"
-          >
-            <div className="mb-5 flex h-8 w-8 items-center justify-center text-[1.5rem] text-gold transition-transform duration-300 group-hover:scale-110">
-              {d.mark}
-            </div>
-            <div className="mb-1 font-display text-[1.25rem] font-medium italic tracking-tight text-cream transition-colors group-hover:text-gold">
-              {d.name}
-            </div>
-            <div className="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-cream-mute">
-              {d.en}
-            </div>
-            <div className="font-sans text-[0.8rem] text-cream-soft">
-              {d.count} essays
-            </div>
-          </button>
-        ))}
+        {districts.map((d) => {
+          const count = getArticlesByDistrict(d.key).length;
+          return (
+            <Link
+              key={d.key}
+              href={`/districts/${d.key}`}
+              className="group bg-night-deep px-7 py-9 text-left transition-colors hover:bg-night-soft"
+            >
+              <div className="mb-5 flex h-8 w-8 items-center justify-center text-[1.5rem] text-gold transition-transform duration-300 group-hover:scale-110">
+                {d.mark}
+              </div>
+              <div className="mb-1 font-display text-[1.25rem] font-medium italic tracking-tight text-cream transition-colors group-hover:text-gold">
+                {d.name}
+              </div>
+              <div className="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-cream-mute">
+                {d.en}
+              </div>
+              <div className="font-sans text-[0.8rem] text-cream-soft">
+                {count} {count === 1 ? "essay" : "essays"}
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

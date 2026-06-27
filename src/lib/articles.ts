@@ -89,6 +89,10 @@ export function getRelatedArticles(
     .slice(0, limit);
 }
 
+export function getArticlesByDistrict(district: string): ArticleMeta[] {
+  return getAllArticles().filter((a) => a.district === district);
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()
