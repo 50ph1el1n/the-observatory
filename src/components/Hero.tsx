@@ -9,25 +9,23 @@ const navItems = [
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[680px] overflow-hidden bg-night">
+    <section className="relative w-full overflow-hidden bg-night">
       {/*
-        Hero image — object-contain guarantees the whole illustration
-        (including the antenna tip) is always visible. The page bg
-        (bg-night, #2a1a4a) matches the sky colour, so the empty area
-        above the image blends seamlessly into more "sky".
+        Full-bleed hero — image drives section height (no cropping, no bars).
+        Section width = 100% viewport; height = viewport_width × image_aspect.
       */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/hero.png"
         alt="The Observatory cityscape"
-        className="absolute inset-0 h-full w-full object-contain object-bottom"
+        className="block w-full h-auto"
       />
 
       {/* Top fade for header readability */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-[rgba(20,10,40,0.55)] to-transparent" />
 
       {/* Header */}
-      <header className="relative z-30 flex items-center justify-between px-12 py-7">
+      <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-12 py-7">
         <div className="flex items-center gap-12">
           <Link
             href="/"
