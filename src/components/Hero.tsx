@@ -9,10 +9,20 @@ const navItems = [
 
 export default function Hero() {
   return (
-    <section
-      className="relative h-screen min-h-[680px] overflow-hidden bg-night bg-cover bg-bottom bg-no-repeat"
-      style={{ backgroundImage: "url(/hero.png)" }}
-    >
+    <section className="relative h-screen min-h-[680px] overflow-hidden bg-night">
+      {/*
+        Hero image — object-contain guarantees the whole illustration
+        (including the antenna tip) is always visible. The page bg
+        (bg-night, #2a1a4a) matches the sky colour, so the empty area
+        above the image blends seamlessly into more "sky".
+      */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/hero.png"
+        alt="The Observatory cityscape"
+        className="absolute inset-0 h-full w-full object-contain object-bottom"
+      />
+
       {/* Top fade for header readability */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-[rgba(20,10,40,0.55)] to-transparent" />
 
