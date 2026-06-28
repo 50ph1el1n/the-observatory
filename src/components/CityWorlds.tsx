@@ -71,7 +71,7 @@ export default function CityWorlds() {
       <div className="mx-auto mb-16 max-w-[600px] text-center">
         <h2 className="mb-3 font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-medium italic tracking-tight text-cream">
           These are my{" "}
-          <em className="text-gold not-italic">world</em>.
+          <em className="text-gold not-italic">worlds</em>.
         </h2>
         <p className="font-display text-[1.15rem] italic leading-relaxed text-cream-soft">
           Eight districts of thought — each one a way of being curious.

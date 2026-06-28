@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 const navItems = [
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
   { label: "Article", href: "/#articles" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const NUM_DOTS = 220;
@@ -161,7 +161,7 @@ export default function Hero() {
               </radialGradient>
             </defs>
             <path
-              d="M 22 92 C 12 58, 38 18, 78 20 C 108 21, 130 8, 162 22 C 192 36, 215 58, 205 95 C 198 122, 178 138, 148 144 C 132 148, 118 156, 92 152 C 60 148, 30 142, 20 118 C 12 105, 18 98, 22 92 Z"
+              d="M 18 92 C 2 60, 40 18, 80 20 C 108 21, 130 8, 162 22 C 192 36, 218 58, 205 95 C 198 122, 178 138, 148 144 C 132 148, 118 156, 92 152 C 60 148, 26 144, 12 120 C 0 107, 4 96, 18 92 Z"
               fill="url(#moteFill)"
             />
           </svg>

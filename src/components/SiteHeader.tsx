@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const navItems = [
-  { label: "About me", href: "/#about" },
+  { label: "About", href: "/about" },
   { label: "Article", href: "/#articles" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function SiteHeader() {
