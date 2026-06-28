@@ -69,3 +69,28 @@ body {
 .particle.warm { background: #e5b58e; }
 .particle.pink { background: #ec8ba8; }
 
+/* ============================================
+   EarthCityScroll — layered star field, earth
+   sphere float, and warm city window pulses
+   ============================================ */
+.dust-dot.layer-far  { background: #6c7178; }
+.dust-dot.layer-mid  { background: #babec4; }
+.dust-dot.layer-near { background: #eef0f4; }
+
+.earth-float {
+  animation: earth-float 8s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes earth-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+.window-warm {
+  animation: window-warm-pulse 5.5s ease-in-out infinite;
+}
+@keyframes window-warm-pulse {
+  0%, 100% { opacity: 0.30; }
+  50%      { opacity: 0.92; }
+}
+
