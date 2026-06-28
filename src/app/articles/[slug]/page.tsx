@@ -177,12 +177,13 @@ export default async function ArticlePage({
             {/* Tags */}
             <div className="mt-16 flex flex-wrap gap-3 border-t border-line pt-8">
               {article.tags.map((t) => (
-                <span
+                <Link
                   key={t}
-                  className="font-mono text-[0.75rem] tracking-wide text-terra"
+                  href={`/tags/${encodeURIComponent(t)}`}
+                  className="font-mono text-[0.75rem] tracking-wide text-terra transition-colors hover:text-gold"
                 >
                   #{t}
-                </span>
+                </Link>
               ))}
             </div>
 

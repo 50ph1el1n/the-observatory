@@ -41,11 +41,15 @@ export default function Articles() {
 
       <div className="mt-14 grid grid-cols-1 gap-x-16 gap-y-20 md:grid-cols-2">
         {articles.map((a) => (
-          <Link
+          <article
             key={a.slug}
-            href={`/articles/${a.slug}`}
-            className="group block cursor-pointer transition-transform duration-300 hover:-translate-y-[3px]"
+            className="group relative cursor-pointer transition-transform duration-300 hover:-translate-y-[3px]"
           >
+            <Link
+              href={`/articles/${a.slug}`}
+              aria-label={a.title}
+              className="absolute inset-0 z-[1]"
+            />
             <div
               className="relative mb-6 aspect-[16/10] overflow-hidden rounded-sm border border-line"
               style={coverStyles[a.cover]}
@@ -63,10 +67,24 @@ export default function Articles() {
             <p className="mb-4 font-display text-[1.05rem] leading-[1.65] text-cream-soft">
               {a.excerpt}
             </p>
-            <span className="font-mono text-[0.7rem] tracking-wide text-terra">
-              {a.tags.map((t) => `#${t}`).join(" · ")}
-            </span>
-          </Link>
+            <div className="relative z-[2] flex flex-wrap gap-x-3 gap-y-1 font-mono text-[0.7rem] tracking-wide text-terra">
+              {a.tags.map((t, i) => (
+                <span key={t} className="inline-flex items-center gap-3">
+                  {i > 0 && (
+                    <span aria-hidden className="text-gold/40">
+                      ·
+                    </span>
+                  )}
+                  <Link
+                    href={`/tags/${encodeURIComponent(t)}`}
+                    className="transition-colors hover:text-gold"
+                  >
+                    #{t}
+                  </Link>
+                </span>
+              ))}
+            </div>
+          </article>
         ))}
       </div>
     </div>
