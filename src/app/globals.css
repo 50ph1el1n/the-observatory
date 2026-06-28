@@ -7,23 +7,23 @@
    Atlantic-style editorial typography
    ============================================ */
 @theme inline {
-  /* ----- Backgrounds ----- */
-  --color-night:       #2a1a4a;   /* 主背景：深紫夜空 */
-  --color-night-deep:  #1e1138;   /* 區塊分隔 */
-  --color-night-soft:  #382057;   /* 卡片底 */
-  --color-line:        #4d3a72;   /* 分隔線 */
+  /* ----- Backgrounds (Dust palette) ----- */
+  --color-night:       #0d0d10;   /* 主背景：近黑 */
+  --color-night-deep:  #16161a;   /* 區塊分隔 / 卡片底 */
+  --color-night-soft:  #1f1f25;   /* hover 背景 */
+  --color-line:        #26262c;   /* 分隔線 */
 
   /* ----- Text ----- */
-  --color-cream:       #f5e8c8;   /* 主文字：暖奶白 */
-  --color-cream-soft:  #e8d4a0;   /* 次要文字 */
-  --color-cream-mute:  #b39d72;   /* 輔助文字 */
+  --color-cream:       #ededed;   /* 主文字：奶白 */
+  --color-cream-soft:  #a8a8a8;   /* 次要文字 */
+  --color-cream-mute:  #6a6a6a;   /* 輔助文字 */
 
   /* ----- Accents ----- */
-  --color-gold:        #f4b942;   /* 強調金黃（窗光） */
-  --color-gold-deep:   #d4941e;
-  --color-terra:       #d17b4a;   /* 赭橘（連結） */
-  --color-rust:        #a85a35;
-  --color-sage:        #8ba888;   /* 鼠尾草綠 */
+  --color-gold:        #e6bfa1;   /* 淺橘塵埃色 — 主強調 */
+  --color-gold-deep:   #caa386;   /* 深塵埃 */
+  --color-terra:       #e5b58e;   /* 暖橘 */
+  --color-rust:        #c9627f;   /* 深粉紅（連結） */
+  --color-sage:        #ec8ba8;   /* 粉紅（互動） */
 
   /* ----- Typography ----- */
   --font-display: var(--font-source-serif);    /* Atlantic 編輯式襯線 */
@@ -39,4 +39,33 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+/* ============================================
+   Hero — dust field + floating mote
+   ============================================ */
+.dust-dot {
+  position: absolute;
+  background: #ededed;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: calc(var(--opa, 0.6) * 0.35); transform: scale(0.85); }
+  50%      { opacity: var(--opa, 0.6);              transform: scale(1.15); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0)    rotate(0deg); }
+  33%      { transform: translateY(-14px) rotate(2deg); }
+  66%      { transform: translateY(8px)   rotate(-1.5deg); }
+}
+.particle {
+  position: absolute;
+  background: #e6bfa1;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+.particle.warm { background: #e5b58e; }
+.particle.pink { background: #ec8ba8; }
 

@@ -1,26 +1,16 @@
 import Hero from "@/components/Hero";
-import Intro from "@/components/Intro";
+import CityWorlds from "@/components/CityWorlds";
 import Articles from "@/components/Articles";
-import CityMap from "@/components/CityMap";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <CityWorlds />
 
-      <section className="bg-night px-8 py-28">
-        <Intro />
-        <div className="mt-20">
-          <Articles />
-        </div>
-      </section>
-
-      <section
-        id="city"
-        className="border-y border-line bg-night-deep px-8 py-28"
-      >
-        <CityMap />
+      <section className="bg-night-deep border-t border-line px-8 py-28">
+        <Articles />
       </section>
 
       <Footer />
