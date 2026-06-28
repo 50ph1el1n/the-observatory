@@ -74,43 +74,88 @@ function EarthSphere({
       {/* Lit sphere */}
       <circle cx="120" cy="120" r="84" fill="url(#earthBody)" />
 
-      {/* Continents — slowly rotated around sphere center */}
+      {/* Continents — refined Eastern-Hemisphere geography */}
       <g ref={continentsRef} clipPath="url(#earthSphereClip)">
-        {/* Africa */}
+        {/* Africa — West African bulge tapering south to Cape */}
         <path
-          d="M 88 90 Q 96 86, 108 86 Q 124 84, 140 88 L 152 92 Q 158 100, 158 110 Q 154 120, 148 128 Q 142 138, 134 146 Q 124 154, 114 152 Q 102 146, 96 134 Q 90 122, 88 110 Q 86 100, 88 90 Z"
-          fill="#171a20"
-          opacity="0.86"
+          d="M 90 90 Q 100 84, 114 84 Q 128 84, 140 88 L 148 92 Q 154 100, 154 110 L 152 118 Q 148 126, 144 134 Q 138 142, 132 148 Q 124 154, 116 152 Q 108 148, 102 140 Q 96 130, 92 120 Q 88 110, 88 100 Q 88 92, 90 90 Z"
+          fill="#171a20" opacity="0.86"
         />
-        {/* Europe */}
+
+        {/* Europe mainland coast */}
         <path
-          d="M 96 78 L 112 74 Q 124 76, 138 78 L 144 82 L 132 86 L 122 88 L 110 86 L 100 86 Z"
-          fill="#171a20"
-          opacity="0.78"
+          d="M 96 76 L 108 72 Q 120 70, 132 74 L 140 78 L 132 82 L 124 82 L 116 80 L 108 80 L 102 78 Z"
+          fill="#171a20" opacity="0.78"
         />
-        {/* Arabian peninsula */}
+        {/* Iberian peninsula */}
+        <path d="M 96 80 L 104 80 L 106 86 L 100 88 L 96 86 Z" fill="#171a20" opacity="0.74" />
+        {/* Italian boot */}
+        <path d="M 118 84 L 122 86 L 124 92 L 122 94 L 120 90 Z" fill="#171a20" opacity="0.74" />
+        {/* Scandinavia */}
+        <path d="M 120 62 L 128 60 L 134 66 L 136 72 L 132 74 L 126 72 L 122 68 Z" fill="#171a20" opacity="0.74" />
+        {/* British Isles */}
+        <path d="M 102 70 L 107 68 L 109 72 L 107 76 L 102 74 Z" fill="#171a20" opacity="0.7" />
+
+        {/* Arabian peninsula — sharper triangle */}
         <path
-          d="M 156 100 L 168 102 L 174 112 L 168 120 L 158 116 Z"
-          fill="#171a20"
-          opacity="0.75"
+          d="M 152 96 L 164 98 L 170 106 L 168 114 L 162 118 L 154 114 L 152 106 Z"
+          fill="#171a20" opacity="0.78"
         />
-        {/* Madagascar */}
+
+        {/* Madagascar — oblong island east of Mozambique */}
         <path
-          d="M 144 136 L 152 144 L 148 154 L 140 148 Z"
-          fill="#171a20"
-          opacity="0.7"
+          d="M 146 132 L 152 140 L 152 152 L 148 154 L 144 148 L 144 138 Z"
+          fill="#171a20" opacity="0.72"
         />
-        {/* Greenland fragment */}
+
+        {/* Asia mainland (Russia + China) */}
         <path
-          d="M 76 62 L 86 60 L 92 68 L 84 72 L 76 70 Z"
-          fill="#171a20"
-          opacity="0.55"
+          d="M 142 64 L 158 62 L 174 64 L 184 68 L 188 74 L 188 82 L 184 88 L 176 92 L 168 92 L 160 90 L 152 86 L 146 78 L 142 70 Z"
+          fill="#171a20" opacity="0.78"
         />
-        {/* Asia limb hint */}
+
+        {/* India subcontinent */}
         <path
-          d="M 172 80 L 190 76 L 200 86 L 192 92 L 178 90 Z"
-          fill="#171a20"
-          opacity="0.55"
+          d="M 162 94 L 170 96 L 172 106 L 166 116 L 160 112 L 160 102 Z"
+          fill="#171a20" opacity="0.78"
+        />
+
+        {/* Indochina */}
+        <path
+          d="M 178 94 L 184 96 L 186 104 L 182 110 L 178 106 L 176 98 Z"
+          fill="#171a20" opacity="0.72"
+        />
+
+        {/* Japanese archipelago */}
+        <path d="M 184 78 L 188 78 L 192 84 L 190 90 L 186 88 L 184 82 Z" fill="#171a20" opacity="0.66" />
+
+        {/* Australia */}
+        <path
+          d="M 168 130 L 184 128 L 192 132 L 194 140 L 188 146 L 174 144 L 168 138 Z"
+          fill="#171a20" opacity="0.74"
+        />
+
+        {/* Indonesia islands */}
+        <g opacity="0.7">
+          <ellipse cx="176" cy="120" rx="3.5" ry="1.5" fill="#171a20" />
+          <ellipse cx="184" cy="122" rx="2.5" ry="1.2" fill="#171a20" />
+          <ellipse cx="168" cy="118" rx="2.2" ry="1" fill="#171a20" />
+          <ellipse cx="190" cy="126" rx="2" ry="1" fill="#171a20" />
+        </g>
+
+        {/* Sri Lanka */}
+        <ellipse cx="170" cy="120" rx="1.6" ry="2.2" fill="#171a20" opacity="0.65" />
+
+        {/* Greenland */}
+        <path d="M 80 56 L 90 54 L 96 60 L 96 70 L 90 72 L 82 70 L 78 64 Z" fill="#171a20" opacity="0.72" />
+
+        {/* Iceland */}
+        <ellipse cx="100" cy="64" rx="2.5" ry="1.5" fill="#171a20" opacity="0.6" />
+
+        {/* Antarctica hint — south polar cap */}
+        <path
+          d="M 80 174 L 110 178 L 140 180 L 170 178 L 168 188 L 110 188 L 80 184 Z"
+          fill="#171a20" opacity="0.55"
         />
       </g>
 
@@ -484,17 +529,6 @@ export default function EarthCityScroll() {
       populate(nearStarsRef.current, STAR_LAYERS[2]);
 
       const ctx = gsap.context(() => {
-        // Slow continuous continent rotation (independent of scroll)
-        if (continentsRef.current) {
-          gsap.to(continentsRef.current, {
-            rotation: 360,
-            transformOrigin: "120px 120px",
-            duration: 90,
-            repeat: -1,
-            ease: "none",
-          });
-        }
-
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
