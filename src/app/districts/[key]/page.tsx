@@ -65,7 +65,7 @@ export default async function DistrictPage({
     <div className="min-h-screen bg-night text-cream">
       <SiteHeader />
 
-      <main className="mx-auto max-w-[1240px] px-8 py-20 lg:py-28">
+      <main className="mx-auto max-w-[1240px] px-5 py-20 sm:px-8 lg:py-28">
         {/* ───── District Header ───── */}
         <header className="mb-20 text-center">
           <div className="mb-6 text-[3rem] text-gold">{district.mark}</div>

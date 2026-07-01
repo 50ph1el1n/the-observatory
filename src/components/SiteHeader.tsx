@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MobileNav from "./MobileNav";
 
 const navItems = [
   { label: "About", href: "/about" },
@@ -10,7 +11,7 @@ const navItems = [
 export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-night/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1240px] items-center justify-between px-8 py-5">
+      <div className="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-5 sm:px-8">
         <Link
           href="/"
           className="flex items-center gap-2 font-display text-[1.2rem] font-medium italic tracking-tight text-cream transition-colors hover:text-gold"
@@ -18,7 +19,7 @@ export default function SiteHeader() {
           <span className="not-italic text-gold text-[1rem]">✦</span>
           The Observatory
         </Link>
-        <nav className="flex gap-7">
+        <nav className="hidden gap-7 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -29,6 +30,7 @@ export default function SiteHeader() {
             </Link>
           ))}
         </nav>
+        <MobileNav />
       </div>
     </header>
   );

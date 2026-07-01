@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import MobileNav from "./MobileNav";
 
 const navItems = [
   { label: "About", href: "/about" },
@@ -169,7 +170,7 @@ export default function Hero() {
       </div>
 
       {/* Header */}
-      <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-12 py-7">
+      <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 py-6 sm:px-12 sm:py-7">
         <Link
           href="/"
           className="flex items-center gap-2 font-display text-[1.2rem] font-medium italic tracking-tight text-cream"
@@ -177,7 +178,7 @@ export default function Hero() {
           <span className="not-italic text-[1.1rem] text-gold">✦</span>
           The Observatory
         </Link>
-        <nav className="flex gap-7">
+        <nav className="hidden gap-7 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -188,6 +189,7 @@ export default function Hero() {
             </Link>
           ))}
         </nav>
+        <MobileNav />
       </header>
 
       {/* Hero tag (below mote) */}

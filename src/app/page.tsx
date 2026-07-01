@@ -11,7 +11,7 @@ export default function Home() {
       <EarthCityScroll />
       <CityWorlds />
 
-      <section className="bg-night-deep border-t border-line px-8 py-28">
+      <section className="bg-night-deep border-t border-line px-5 py-24 sm:px-8 sm:py-28">
         <Articles />
       </section>
 
