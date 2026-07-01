@@ -22,6 +22,8 @@ export type Article = ArticleMeta & {
   titleZh?: string;
   excerptZh?: string;
   bodyZh?: string;
+  /** Full-precision viewing/reading date (e.g. "2022.08.10"), for diary entries. */
+  watched?: string;
 };
 
 type ArticleInternal = Article & { _timestamp: number };
@@ -43,6 +45,16 @@ function readArticleFile(filename: string): ArticleInternal {
   const titleZh = meta.title_zh ? String(meta.title_zh) : undefined;
   const excerptZh = meta.excerpt_zh ? String(meta.excerpt_zh) : undefined;
 
+  // Optional viewing/reading date — full precision, formatted "YYYY.MM.DD".
+  let watched: string | undefined;
+  if (meta.watched) {
+    const w =
+      meta.watched instanceof Date ? meta.watched : new Date(String(meta.watched));
+    const mm = String(w.getUTCMonth() + 1).padStart(2, "0");
+    const dd = String(w.getUTCDate()).padStart(2, "0");
+    watched = `${w.getUTCFullYear()}.${mm}.${dd}`;
+  }
+
   return {
     slug,
     title: String(meta.title ?? ""),
@@ -61,6 +73,7 @@ function readArticleFile(filename: string): ArticleInternal {
     titleZh,
     excerptZh,
     bodyZh,
+    watched,
   };
 }
 

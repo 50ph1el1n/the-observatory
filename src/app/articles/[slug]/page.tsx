@@ -189,7 +189,11 @@ export default async function ArticlePage({
               <span className="mx-2 text-cream-mute">·</span>
               <span className="text-cream-mute">{article.read}</span>
               <span className="mx-2 text-cream-mute">·</span>
-              <span className="text-cream-mute">{article.date}</span>
+              {article.watched ? (
+                <span className="text-gold">👀 Watched {article.watched}</span>
+              ) : (
+                <span className="text-cream-mute">{article.date}</span>
+              )}
             </div>
 
             {/* EN / 中 toggle (only shown when a zh version exists) */}
