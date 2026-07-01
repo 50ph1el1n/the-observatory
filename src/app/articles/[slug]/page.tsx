@@ -12,7 +12,7 @@ import {
 } from "@/lib/articles";
 import SiteHeader from "@/components/SiteHeader";
 import Footer from "@/components/Footer";
-import LangSwitch from "@/components/LangSwitch";
+import { LangProvider, LangToggle, LangBlock } from "@/components/Lang";
 
 const TITLE_CLS =
   "mb-6 font-display text-[clamp(2.4rem,4.5vw,3.6rem)] font-medium leading-[1.08] tracking-tight text-cream";
@@ -103,6 +103,34 @@ const mdxComponents: MDXComponents = {
   hr: () => <hr className="my-12 h-px w-12 border-0 bg-gold" />,
 };
 
+function Toc({
+  headings,
+  label,
+}: {
+  headings: { text: string; id: string }[];
+  label: string;
+}) {
+  return (
+    <>
+      <h4 className="mb-5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-cream-mute">
+        {label}
+      </h4>
+      <ul className="space-y-1 border-l border-line">
+        {headings.map((h) => (
+          <li key={h.id}>
+            <a
+              href={`#${h.id}`}
+              className="-ml-px block border-l-2 border-transparent py-1.5 pl-4 font-display text-[0.92rem] leading-snug text-cream-soft transition-colors hover:border-gold hover:text-gold"
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 export default async function ArticlePage({
   params,
 }: {
@@ -114,12 +142,14 @@ export default async function ArticlePage({
 
   const related = getRelatedArticles(article.district, article.slug);
   const headings = getHeadings(article.body);
+  const headingsZh = article.bodyZh ? getHeadings(article.bodyZh) : [];
 
   return (
     <div className="min-h-screen bg-night text-cream">
       <SiteHeader />
 
       <main className="mx-auto max-w-[1280px] px-6 py-16 lg:py-24">
+        <LangProvider hasZh={Boolean(article.bodyZh)}>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[200px_minmax(0,680px)_200px] lg:justify-center">
           {/* ───── Left sidebar: related ───── */}
           <aside className="order-2 lg:order-1 lg:sticky lg:top-28 lg:self-start">
@@ -162,34 +192,26 @@ export default async function ArticlePage({
               <span className="text-cream-mute">{article.date}</span>
             </div>
 
-            {/* Title + lede + body, with an EN / 中 toggle when a zh version exists */}
-            <LangSwitch
-              en={
-                <>
-                  <h1 className={TITLE_CLS}>{article.title}</h1>
-                  <p className={LEDE_CLS}>{article.excerpt}</p>
-                  <div className="mb-12 h-px w-12 bg-gold" />
-                  <MDXRemote source={article.body} components={mdxComponents} />
-                </>
-              }
-              zh={
-                article.bodyZh ? (
-                  <>
-                    <h1 className={TITLE_CLS}>
-                      {article.titleZh ?? article.title}
-                    </h1>
-                    {article.excerptZh && (
-                      <p className={LEDE_CLS}>{article.excerptZh}</p>
-                    )}
-                    <div className="mb-12 h-px w-12 bg-gold" />
-                    <MDXRemote
-                      source={article.bodyZh}
-                      components={mdxComponents}
-                    />
-                  </>
-                ) : undefined
-              }
-            />
+            {/* EN / 中 toggle (only shown when a zh version exists) */}
+            <LangToggle className="mb-8" />
+
+            {/* Title + lede + body, per language */}
+            <LangBlock lang="en">
+              <h1 className={TITLE_CLS}>{article.title}</h1>
+              <p className={LEDE_CLS}>{article.excerpt}</p>
+              <div className="mb-12 h-px w-12 bg-gold" />
+              <MDXRemote source={article.body} components={mdxComponents} />
+            </LangBlock>
+            {article.bodyZh && (
+              <LangBlock lang="zh">
+                <h1 className={TITLE_CLS}>{article.titleZh ?? article.title}</h1>
+                {article.excerptZh && (
+                  <p className={LEDE_CLS}>{article.excerptZh}</p>
+                )}
+                <div className="mb-12 h-px w-12 bg-gold" />
+                <MDXRemote source={article.bodyZh} components={mdxComponents} />
+              </LangBlock>
+            )}
 
             {/* Tags */}
             <div className="mt-16 flex flex-wrap gap-3 border-t border-line pt-8">
@@ -215,29 +237,21 @@ export default async function ArticlePage({
             </div>
           </article>
 
-          {/* ───── Right sidebar: TOC ───── */}
+          {/* ───── Right sidebar: TOC (switches with language) ───── */}
           <aside className="order-3 lg:sticky lg:top-28 lg:self-start">
             {headings.length > 0 && (
-              <>
-                <h4 className="mb-5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-cream-mute">
-                  On this page
-                </h4>
-                <ul className="space-y-1 border-l border-line">
-                  {headings.map((h) => (
-                    <li key={h.id}>
-                      <a
-                        href={`#${h.id}`}
-                        className="-ml-px block border-l-2 border-transparent py-1.5 pl-4 font-display text-[0.92rem] leading-snug text-cream-soft transition-colors hover:border-gold hover:text-gold"
-                      >
-                        {h.text}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </>
+              <LangBlock lang="en">
+                <Toc headings={headings} label="On this page" />
+              </LangBlock>
+            )}
+            {headingsZh.length > 0 && (
+              <LangBlock lang="zh">
+                <Toc headings={headingsZh} label="本頁目錄" />
+              </LangBlock>
             )}
           </aside>
         </div>
+        </LangProvider>
       </main>
 
       <Footer />
