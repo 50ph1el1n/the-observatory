@@ -51,6 +51,29 @@ cover: cover-1
 - `date`：`YYYY-MM-DD`，決定文章排序（新的在前）
 - `read`：閱讀時間，例如 `3 min read`
 
+### 想要「一鍵中英切換」？加中文版即可
+同一個檔加上中文欄位與 `<!--zh-->` 分隔線，文章頁右上就會出現 `EN / 中` 切換鈕；
+沒加就純英文、不顯示切換鈕。
+
+```mdx
+---
+title: "English Title"
+title_zh: "中文標題"
+excerpt: "English hook…"
+excerpt_zh: "中文摘要…"
+district: cine
+...
+---
+
+English body…
+
+<!--zh-->
+
+中文本文…
+```
+
+`<!--zh-->` 之前為英文、之後為中文。切換選擇會記住，套用到之後開的文章。
+
 ---
 
 ## 方式 B：請 Claude 翻

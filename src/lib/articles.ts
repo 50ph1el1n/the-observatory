@@ -18,6 +18,10 @@ export type ArticleMeta = {
 
 export type Article = ArticleMeta & {
   body: string;
+  /** Chinese counterparts — present only when the .mdx provides them. */
+  titleZh?: string;
+  excerptZh?: string;
+  bodyZh?: string;
 };
 
 type ArticleInternal = Article & { _timestamp: number };
@@ -31,6 +35,13 @@ function readArticleFile(filename: string): ArticleInternal {
   // YAML auto-parses ISO dates to Date objects — normalize both Date and string.
   const dateObj =
     meta.date instanceof Date ? meta.date : new Date(String(meta.date));
+
+  // Body may hold both languages, split by a `<!--zh-->` marker:
+  // English above the marker, Chinese below. No marker → English only.
+  const [bodyEn, ...zhParts] = content.split(/<!--\s*zh\s*-->/i);
+  const bodyZh = zhParts.length > 0 ? zhParts.join("").trim() : undefined;
+  const titleZh = meta.title_zh ? String(meta.title_zh) : undefined;
+  const excerptZh = meta.excerpt_zh ? String(meta.excerpt_zh) : undefined;
 
   return {
     slug,
@@ -46,7 +57,10 @@ function readArticleFile(filename: string): ArticleInternal {
       month: "long",
     }),
     _timestamp: dateObj.getTime(),
-    body: content,
+    body: bodyEn.trim(),
+    titleZh,
+    excerptZh,
+    bodyZh,
   };
 }
 

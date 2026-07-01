@@ -12,6 +12,12 @@ import {
 } from "@/lib/articles";
 import SiteHeader from "@/components/SiteHeader";
 import Footer from "@/components/Footer";
+import LangSwitch from "@/components/LangSwitch";
+
+const TITLE_CLS =
+  "mb-6 font-display text-[clamp(2.4rem,4.5vw,3.6rem)] font-medium leading-[1.08] tracking-tight text-cream";
+const LEDE_CLS =
+  "mb-10 font-display text-[1.25rem] italic leading-[1.55] text-cream-soft";
 
 export function generateStaticParams() {
   return getAllArticles().map((a) => ({ slug: a.slug }));
@@ -156,23 +162,34 @@ export default async function ArticlePage({
               <span className="text-cream-mute">{article.date}</span>
             </div>
 
-            {/* Title */}
-            <h1 className="mb-6 font-display text-[clamp(2.4rem,4.5vw,3.6rem)] font-medium leading-[1.08] tracking-tight text-cream">
-              {article.title}
-            </h1>
-
-            {/* Lede */}
-            <p className="mb-10 font-display text-[1.25rem] italic leading-[1.55] text-cream-soft">
-              {article.excerpt}
-            </p>
-
-            {/* Divider */}
-            <div className="mb-12 h-px w-12 bg-gold" />
-
-            {/* MDX Body */}
-            <div>
-              <MDXRemote source={article.body} components={mdxComponents} />
-            </div>
+            {/* Title + lede + body, with an EN / 中 toggle when a zh version exists */}
+            <LangSwitch
+              en={
+                <>
+                  <h1 className={TITLE_CLS}>{article.title}</h1>
+                  <p className={LEDE_CLS}>{article.excerpt}</p>
+                  <div className="mb-12 h-px w-12 bg-gold" />
+                  <MDXRemote source={article.body} components={mdxComponents} />
+                </>
+              }
+              zh={
+                article.bodyZh ? (
+                  <>
+                    <h1 className={TITLE_CLS}>
+                      {article.titleZh ?? article.title}
+                    </h1>
+                    {article.excerptZh && (
+                      <p className={LEDE_CLS}>{article.excerptZh}</p>
+                    )}
+                    <div className="mb-12 h-px w-12 bg-gold" />
+                    <MDXRemote
+                      source={article.bodyZh}
+                      components={mdxComponents}
+                    />
+                  </>
+                ) : undefined
+              }
+            />
 
             {/* Tags */}
             <div className="mt-16 flex flex-wrap gap-3 border-t border-line pt-8">
