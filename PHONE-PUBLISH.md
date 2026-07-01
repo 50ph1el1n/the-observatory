@@ -1,38 +1,60 @@
-# 📱 手機發文：翻譯機器人
+# 📱 手機發文（手動）
 
-把備忘錄裡的中文文章貼進 GitHub，機器人自動翻成英文並上線。
-原理：發文 = 在 repo 放一個 `.mdx` 檔 → Vercel 自動部署。機器人幫你做翻譯那一步。
+發文 = 在 repo 放一個 `.mdx` 檔 → Vercel 自動部署。不需要後台、不需要 API。
 
----
-
-## 一次性設定（只做一次，5 分鐘）
-
-1. 到 [Anthropic Console](https://console.anthropic.com/) 申請一組 API key（`sk-ant-...`）。
-2. 打開 GitHub repo → **Settings → Secrets and variables → Actions → New repository secret**
-   - Name：`ANTHROPIC_API_KEY`
-   - Secret：貼上剛剛的 key → Add secret
-3. 確認 repo 的 **Settings → Actions → General → Workflow permissions** 設為
-   **Read and write permissions**（讓機器人能 push 文章）。
-
-完成。之後都不用再碰設定。
+兩種方式：
+- **自己翻好**：照下面範本，用 GitHub App 直接新增檔案。
+- **請 Claude 翻**：把中文原文貼給 Claude，我翻成英文並直接 commit / push。
 
 ---
 
-## 每次發文（手機）
+## 方式 A：自己翻，手機直接發
 
-1. 用 **GitHub App** 打開 repo → 進 `drafts` 資料夾
-2. 右上 `+` → **Create new file**，檔名隨意（例如 `note.md`）
-3. 貼上備忘錄裡的文章 → **Commit**
-4. 等約 1 分鐘，機器人會：翻成英文 → 產生文章 → 自動上線 → 清掉草稿
+1. 用 **GitHub App** 打開 repo → 進 `src/content/articles/`
+2. 右上 `+` → **Create new file**，檔名 = 英文 slug，例如 `my-article.mdx`
+3. 貼上下面範本、填好內容 → **Commit**
+4. 約 1 分鐘後 Vercel 自動上線
 
-到 **Actions** 分頁可以看翻譯進度；上線後文章會出現在對應的城市分區。
+### frontmatter 範本
+```mdx
+---
+title: "文章英文標題"
+district: ai
+cat: "AI Factory"
+read: 5 min read
+date: 2026-07-01
+excerpt: "一句英文開場鉤子，160 字以內。"
+tags: [tag1, tag2, tag3]
+cover: cover-1
+---
+
+第一段內文…
+
+## 小標題
+
+段落內容，可用 **粗體**、清單、> 引言。
+```
+
+### 分區對照（`district` / `cat` 要成對）
+| district | cat（照填） | 主題 |
+|---|---|---|
+| `cine` | Cinema | 電影、動畫、影集 |
+| `hall` | City Hall | 公共、政策、社會 |
+| `lib` | Library | 書、讀書筆記 |
+| `ai` | AI Factory | AI 工具、prompt、工作流 |
+| `space` | Spaceport | 旅行、遠端、邊界 |
+| `pod` | Broadcast Tower | Podcast、音頻 |
+| `fin` | Finance District | 金錢、市場、投資 |
+| `garden` | Reflection Park | 自我、日記、隨筆 |
+
+- `cover`：`cover-1` ~ `cover-4`（封面樣式，隨意選）
+- `date`：`YYYY-MM-DD`，決定文章排序（新的在前）
+- `read`：閱讀時間，例如 `3 min read`
 
 ---
 
-## 運作細節
+## 方式 B：請 Claude 翻
 
-- 草稿放 `drafts/`，成品出現在 `src/content/articles/`，由 `.github/workflows/translate.yml` 觸發。
-- 分區、標題、摘要、標籤、閱讀時間都由 Claude 依內容自動決定（分區清單同步自 `src/lib/districts.ts`）。
-- 機器人 commit 帶 `[skip-translate]`，不會無限觸發。
-- 想換模型：改 workflow 裡的 `TRANSLATE_MODEL`（預設 `claude-sonnet-4-6`）。
-- 翻得不滿意：直接在 GitHub 上編輯 `src/content/articles/` 那個 `.mdx` 即可。
+把備忘錄的中文原文貼進對話，說「翻譯發布」即可。我會：
+翻成英文 → 選好分區與 frontmatter → 產生 `.mdx` → commit / push → Vercel 上線。
+你只要在手機把原文貼過來就好。
